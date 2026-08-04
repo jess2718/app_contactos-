@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 
 import '../models/contact.model.dart';
 
 class ContactListItem extends StatelessWidget {
+
   final Contact contact;
   final VoidCallback? onTap;
 
@@ -14,98 +15,60 @@ class ContactListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    final initial = contact.firstName.trim().isEmpty
-        ? '?'
-        : contact.firstName.trim()[0].toUpperCase();
 
     return Card(
+
       margin: const EdgeInsets.symmetric(
-        horizontal: 16,
+        horizontal: 12,
         vertical: 6,
       ),
-      elevation: 1,
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+
       child: ListTile(
+
         onTap: onTap,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 8,
-        ),
 
         leading: CircleAvatar(
+
           radius: 24,
-          backgroundColor: theme.colorScheme.primaryContainer,
-          foregroundColor: theme.colorScheme.onPrimaryContainer,
+
           child: Text(
-            initial,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+
+            contact.firstName.substring(0, 1).toUpperCase(),
+
           ),
+
         ),
 
         title: Text(
+
           contact.fullName,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w600,
+
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
           ),
+
         ),
 
-        subtitle: Padding(
-          padding: const EdgeInsets.only(top: 6),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.phone_outlined,
-                    size: 16,
-                    color: theme.colorScheme.primary,
-                  ),
-                  const SizedBox(width: 6),
-                  Expanded(
-                    child: Text(
-                      contact.phone,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Row(
-                children: [
-                  Icon(
-                    Icons.email_outlined,
-                    size: 16,
-                    color: theme.colorScheme.primary,
-                  ),
-                  const SizedBox(width: 6),
-                  Expanded(
-                    child: Text(
-                      contact.email,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+        subtitle: Column(
+
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+
+            Text(contact.phone),
+
+            Text(contact.email),
+
+          ],
+
         ),
 
-        trailing: const Icon(
-          Icons.arrow_forward_ios,
-          size: 18,
-        ),
+        trailing: const Icon(Icons.chevron_right),
+
       ),
+
     );
+
   }
+
 }
